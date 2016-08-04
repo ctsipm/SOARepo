@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+ <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+ <!--/*/ <th:block th:include="fragments/sidebar :: sidebar"></th:block> /*/-->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Project Deployment Details
+      </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Your Page Content Here -->
+      <div>
+        <form class="form-horizontal" th:object="${projectdeployment}" th:action="@{/projectdeployment}" method="post">
+            <input type="hidden" th:field="*{id}"/>            
+            
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Project Name: </label>
+            <select th:field="*{projectinfo}" size="5">
+                <option th:each="projectinfo : ${projectinfos}" th:text="${projectinfo.name}" th:value="${projectinfo.id}" >[option]</option>
+            </select>
+        	</div>  
+            
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Environment Name: </label>
+            <select th:field="*{environment}" size="5">
+                <option th:each="environment : ${environments}" th:text="${environment.name}" th:value="${environment.id}" >[option]</option>
+            </select>
+        	</div>   
+        
+            <div class="row">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+ 
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+ <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+ <!--/*/ <th:block th:include="fragments/sidebar :: sidebar"></th:block> /*/-->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Queuemanager List
+      </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Your Page Content Here -->
+      <div th:if="${not #lists.isEmpty(queuemanagerdetails)}">
+
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>HostName</th>
+                <th>Port</th>
+                <th>ChannelName</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="queuemanagerdetail : ${queuemanagerdetails}">
+                <td th:text="${queuemanagerdetail.id}"><a href="/queuemanagerdetail/${queuemanagerdetail.id}">Id</a></td>
+                <td th:text="${queuemanagerdetail.name}">name</td>
+                <td th:text="${queuemanagerdetail.description}">descirption</td>
+                <td th:text="${queuemanagerdetail.hostname}">hostname</td>
+                <td th:text="${queuemanagerdetail.portnumber}">portnumber</td>
+                <td th:text="${queuemanagerdetail.channelname}">channelname</td>
+                <td><a th:href="${'/queuemanagerdetail/' + queuemanagerdetail.id}">View</a></td>
+                <td><a th:href="${'/queuemanagerdetail/edit/' + queuemanagerdetail.id}">Edit</a></td>
+                <td><a th:href="${'/queuemanagerdetail/delete/' + queuemanagerdetail.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+ 
+</div>
+</body>
+</html>

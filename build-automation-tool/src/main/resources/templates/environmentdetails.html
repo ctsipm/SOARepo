@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+   <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+   <!--/*/ <th:block th:include="fragments/sidebar :: sidebar"></th:block> /*/-->
+     <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+      	environment Details List
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div th:if="${not #lists.isEmpty(envDetails)}">
+        
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>                
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="envDetail : ${envDetails}">
+                <td th:text="${envDetail.id}"><a href="/envDetail/${envDetail.id}">Environment Id</a></td>
+                <td th:text="${envDetail.name}">Environment Name</td>
+                <td th:text="${envDetail.description}">Environment Description</td>                
+                <td><a th:href="${'/envDetail/' + envDetail.id}">View</a></td>
+                <td><a th:href="${'/envDetail/edit/' + envDetail.id}">Edit</a></td>
+                <td><a th:href="${'/envDetail/delete/' + envDetail.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+    
+  <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+</div>
+</body>
+</html>

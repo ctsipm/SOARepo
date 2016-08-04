@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+ <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+ <!--/*/ <th:block th:include="fragments/sidebar :: sidebar"></th:block> /*/-->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Release Wise Projects
+      </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Your Page Content Here -->
+      <div th:if="${not #lists.isEmpty(releasewiseprojects)}">
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Release Name</th>
+                <th>Project Name</th>                
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="releasewiseproject : ${releasewiseprojects}">
+                <td th:text="${releasewiseproject.id}"><a href="/releasewiseproject/${releasewiseproject.id}">Id</a></td>
+                <td th:text="${releasewiseproject.releaseinfo.name}">Releasename</td>
+                <td th:text="${releasewiseproject.projectinfo.name}">Projectname</td>               
+                <td><a th:href="${'/releasewiseproject/' + releasewiseproject.id}">View</a></td>
+                <td><a th:href="${'/releasewiseproject/edit/' + releasewiseproject.id}">Edit</a></td>
+                <td><a th:href="${'/releasewiseproject/delete/' + releasewiseproject.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+ 
+</div>
+</body>
+</html>

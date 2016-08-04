@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+ <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+ <!--/*/ <th:block th:include="fragments/sidebar :: sidebar"></th:block> /*/-->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Application Deployment Details
+      </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Your Page Content Here -->
+      <div th:if="${not #lists.isEmpty(applicationdeployedegwises)}">
+        <h2>Application Deployment Details</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Application Name</th>
+                <th>Execution Group Name</th>   
+                <th>Broker Name</th>               
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="applicationdeployedegwise : ${applicationdeployedegwises}">
+                <td th:text="${applicationdeployedegwise.id}"><a href="/applicationdeployedegwise/${applicationdeployedegwise.id}">Id</a></td>
+                <td th:text="${applicationdeployedegwise.messageapplicationwithrepo.name}">Application Name</td>
+                <td th:text="${applicationdeployedegwise.egdetail.name}">Execution Group Name</td>
+                <td th:text="${applicationdeployedegwise.egdetail.broker.name}">Broker Name</td>               
+                <td><a th:href="${'/applicationdeployedegwise/' + applicationdeployedegwise.id}">View</a></td>
+                <td><a th:href="${'/applicationdeployedegwise/edit/' + applicationdeployedegwise.id}">Edit</a></td>
+                <td><a th:href="${'/applicationdeployedegwise/delete/' + applicationdeployedegwise.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+ 
+</div>
+</body>
+</html>

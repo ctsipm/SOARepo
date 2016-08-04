@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+ <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+ <!--/*/ <th:block th:include="fragments/sidebar :: sidebar"></th:block> /*/-->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Message Set Details
+      </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Your Page Content Here -->
+      <div>
+        <form class="form-horizontal" th:object="${messagesetlibrarywise}" th:action="@{/messagesetlibrarywise}" method="post">
+            <input type="hidden" th:field="*{id}"/>            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Set Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{name}"/>
+            	</div>
+            </div>            
+        	<div class="form-group">
+            <label class="col-sm-2 control-label">Library Name: </label>
+            <select th:field="*{messagelibrarywithrepo}" size="5">
+                <option th:each="messagelibrarywithrepo : ${messagelibrarywithrepos}" th:text="${messagelibrarywithrepo.name}" th:value="${messagelibrarywithrepo.id}" >[option]</option>
+            </select>
+        	</div>        	             
+            <div class="row">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+ 
+</div>
+</body>
+</html>

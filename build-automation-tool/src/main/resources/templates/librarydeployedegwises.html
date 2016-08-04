@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+ <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+ <!--/*/ <th:block th:include="fragments/sidebar :: sidebar"></th:block> /*/-->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Library Deployment Details
+      </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Your Page Content Here -->
+      <div th:if="${not #lists.isEmpty(librarydeployedegwises)}">
+        <h2>Library Deployment Details</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Library Name</th>
+                <th>Execution Group Name</th>   
+                <th>Broker Name</th>               
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="librarydeployedegwise : ${librarydeployedegwises}">
+                <td th:text="${librarydeployedegwise.id}"><a href="/librarydeployedegwise/${librarydeployedegwise.id}">Id</a></td>
+                <td th:text="${librarydeployedegwise.messagelibrarywithrepo.name}">Library Name</td>
+                <td th:text="${librarydeployedegwise.egdetail.name}">Execution Group Name</td>
+                <td th:text="${librarydeployedegwise.egdetail.broker.name}">Broker Name</td>               
+                <td><a th:href="${'/librarydeployedegwise/' + librarydeployedegwise.id}">View</a></td>
+                <td><a th:href="${'/librarydeployedegwise/edit/' + librarydeployedegwise.id}">Edit</a></td>
+                <td><a th:href="${'/librarydeployedegwise/delete/' + librarydeployedegwise.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+ 
+</div>
+</body>
+</html>
