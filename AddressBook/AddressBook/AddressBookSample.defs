@@ -1,0 +1,25 @@
+# Define a QueueConnectionFactory for Windows and Unix(AIX, Linux, Solaris and HP-UX)
+# Only parameters being overridden from their default values are specified.
+# This sets up a MQ client binding.
+
+DEF QCF(JMSQCF) +
+TRANSPORT(CLIENT) +
+QMANAGER(MB7QMGR) +
+HOSTNAME(127.0.0.1) +
+PORT(2414)
+
+#
+
+DEF Q(JMSREQUESTQ) +
+QUEUE(JMSREQUESTQ) +
+QMANAGER(MB7QMGR)
+
+DEF Q(JMSREPLYQ) +
+QUEUE(JMSREPLYQ) +
+QMANAGER(MB7QMGR)
+
+DEF Q(JMSBACKOUTQ) +
+QUEUE(JMSBACKOUTQ) +
+QMANAGER(MB7QMGR)
+
+END
