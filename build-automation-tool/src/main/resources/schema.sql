@@ -1,5 +1,5 @@
 	
-	/*
+	
 	drop table if exists environment; 
 	create table environment(
 	      id int unsigned not null AUTO_INCREMENT,
@@ -151,7 +151,19 @@
 		  foreign key (project_id) references ProjectInfo(id),
 		  foreign key (release_id) references ReleaseInfo(id)
 		  );
-*/		  
+	
+	drop table if exists BARCreationAppWiseInfo;	  
+	 create table BARCreationInfo(
+	 	  id int not null AUTO_INCREMENT,
+	 	  name varchar_ignorecase(100) not null,
+	 	  version varchar_ignorecase(20) not null,
+	 	  creationdate date, 
+	 	  application_id int not null,
+		  PRIMARY KEY(id),
+		  foreign key (application_id) references MessageApplicationWithRepo(id),
+		  foreign key (release_id) references ReleaseInfo(id)
+		  );
+	
 	
 	  
 		
