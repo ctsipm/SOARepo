@@ -16,7 +16,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Broker Details
+        Build Manually
       </h1>
 
     </section>
@@ -26,20 +26,34 @@
 
       <!-- Your Page Content Here -->
       <div>
-        <form class="form-horizontal" th:object="${buildmanually}" th:action="@{/buildmanually/dtls}" method="post">
-            <input type="hidden" th:field="*{id}"/>            
+        <form class="form-horizontal" th:object="${buildmanualdtls}" th:action="@{/buildmanually/buildbarfiles}" method="post">
+            <input type="hidden" th:field="*{buildManually.id}"/>            
             <div class="form-group">
                 <label class="col-sm-2 control-label">Name:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{name}"/>
+                    <input type="text" class="form-control" th:field="*{buildManually.name}"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Version:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{version}"/>
+                    <input type="text" class="form-control" th:field="*{buildManually.version}"/>
                 </div>
-            </div>       
+            </div>
+            
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Message Application Name: </label>
+            <select th:field="*{applicationWithRepo}" size="5">
+                <option th:each="messageapplicationwithrepo : ${messageapplicationwithrepos}" th:text="${messageapplicationwithrepo.name}" th:value="${messageapplicationwithrepo.id}" >[option]</option>
+            </select>
+        	</div>   
+        	
+        	<div class="form-group">
+            <label class="col-sm-2 control-label">Message Library Name: </label>
+            <select th:field="*{libraryWithRepo}" size="5">
+                <option th:each="messagelibrarywithrepo : ${messagelibrarywithrepos}" th:text="${messagelibrarywithrepo.name}" th:value="${messagelibrarywithrepo.id}" >[option]</option>
+            </select>
+        	</div>      
            
             <div class="row">
                 <button type="submit" class="btn btn-default">Next</button>

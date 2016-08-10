@@ -1,5 +1,7 @@
 package guru.springframework.controllers;
 
+import guru.springframework.domain.BuildManually;
+import guru.springframework.domain.BuildManuallyDtls;
 import guru.springframework.services.MessageApplicationWithRepoService;
 import guru.springframework.services.MessageFlowApplicationWiseService;
 import guru.springframework.services.MessageLibraryWithRepoService;
@@ -8,7 +10,6 @@ import guru.springframework.services.MessageSetLibraryWiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -42,17 +43,39 @@ public class BuildManuallyController {
 
     @RequestMapping(value = "/buildmanually", method = RequestMethod.GET)
     public String list(Model model){
+    	model.addAttribute("buildmanually", new BuildManually());
         model.addAttribute("messageapplicationwithrepos", messageapplicationwithrepoService.listAllMessageApplicationWithRepos());
         model.addAttribute("messagelibrarywithrepos", messagelibrarywithrepoService.listAllMessageLibraryWithRepos());
+       
         return "buildmanually";
     }
     
     
-    @RequestMapping("/buildmanually/fetchfromrepo")
-    public String showBroker(@PathVariable Integer id, Model model){
-        //model.addAttribute("broker", brokerService.getBrokerById(id));
-    	System.out.println("***************************");
-        return "brokershow";
+    @RequestMapping(value = "buildmanually/dtls", method = RequestMethod.POST)
+    public String buildManually(BuildManually manualDtls, Model model){
+       
+    	BuildManuallyDtls buildManuallyDtls = new BuildManuallyDtls();
+    	
+    	buildManuallyDtls.setBuildManually(manualDtls);
+    	
+    	model.addAttribute("messageapplicationwithrepos", messageapplicationwithrepoService.listAllMessageApplicationWithRepos());
+        model.addAttribute("messagelibrarywithrepos", messagelibrarywithrepoService.listAllMessageLibraryWithRepos());
+    	
+    	model.addAttribute("buildmanualdtls", buildManuallyDtls);
+        
+    	return "buildmanualdtls";
+    }
+    
+    @RequestMapping(value = "buildmanually/buildbarfiles", method = RequestMethod.POST)
+    public String buildBARFiles(BuildManuallyDtls manualDtls, Model model){
+       
+    	
+    	System.out.println("***" + manualDtls.getApplicationWithRepo().getName());
+    	
+    	BuildManuallyDtls buildManuallyDtls = new BuildManuallyDtls();
+    	model.addAttribute("buildmanualdtls", buildManuallyDtls);
+    	
+    	return "buildmanualdtls";
     }
 
     /*

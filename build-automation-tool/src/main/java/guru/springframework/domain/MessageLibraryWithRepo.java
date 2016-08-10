@@ -27,6 +27,9 @@ public class MessageLibraryWithRepo {
     
     @OneToMany(mappedBy="messagelibrarywithrepo", cascade=CascadeType.ALL)
     private Set<ProjectDeployables> projectdeployables;
+    
+    @OneToMany(mappedBy="messagelibrarywithrepo", cascade=CascadeType.ALL)
+    private Set<ManualBARCreationLibWiseInfo> manualbarcreationlibwiseinfo;
 
 	public Integer getId() {
 		return id;
@@ -84,6 +87,15 @@ public class MessageLibraryWithRepo {
 
 	public void setProjectdeployables(Set<ProjectDeployables> projectdeployables) {
 		this.projectdeployables = projectdeployables;
+	}
+
+	public Set<ManualBARCreationLibWiseInfo> getManualbarcreationlibwiseinfo() {
+		return manualbarcreationlibwiseinfo;
+	}
+
+	public void setManualbarcreationlibwiseinfo(
+			Set<ManualBARCreationLibWiseInfo> manualbarcreationlibwiseinfo) {
+		this.manualbarcreationlibwiseinfo = manualbarcreationlibwiseinfo;
 	}
 	
 }

@@ -1,5 +1,5 @@
 	
-	
+	/*
 	drop table if exists environment; 
 	create table environment(
 	      id int unsigned not null AUTO_INCREMENT,
@@ -152,18 +152,43 @@
 		  foreign key (release_id) references ReleaseInfo(id)
 		  );
 	
-	drop table if exists BARCreationAppWiseInfo;	  
-	 create table BARCreationInfo(
+	drop table if exists BuildManually;	  
+	 create table BuildManually(
 	 	  id int not null AUTO_INCREMENT,
 	 	  name varchar_ignorecase(100) not null,
 	 	  version varchar_ignorecase(20) not null,
-	 	  creationdate date, 
+	 	  creationdate date,
+	 	  deleteflag varchar_ignorecase(1) not null,
+	 	  PRIMARY KEY(id)
+		  );		  
+		  
+	drop table if exists ManualBARCreationAppWiseInfo;	  
+	 create table ManualBARCreationAppWiseInfo(
+	 	  id int not null AUTO_INCREMENT,
+	 	  name varchar_ignorecase(100) not null,
+	 	  version varchar_ignorecase(20) not null,
+	 	  repolocation varchar_ignorecase(200) not null,
 	 	  application_id int not null,
+	 	  manualbuild_id int not null,
 		  PRIMARY KEY(id),
 		  foreign key (application_id) references MessageApplicationWithRepo(id),
-		  foreign key (release_id) references ReleaseInfo(id)
+		  foreign key (manualbuild_id) references BuildManually(id)
 		  );
-	
+		  
+	drop table if exists ManualBARCreationLibWiseInfo;	  
+	 create table ManualBARCreationLibWiseInfo(
+	 	  id int not null AUTO_INCREMENT,
+	 	  name varchar_ignorecase(100) not null,
+	 	  version varchar_ignorecase(20) not null,
+	 	  repolocation varchar_ignorecase(200) not null,
+	 	  library_id int not null,
+	 	  manualbuild_id int not null,
+		  PRIMARY KEY(id),
+		  foreign key (library_id) references MessageLibraryWithRepo(id),
+		  foreign key (manualbuild_id) references BuildManually(id)
+		  );
+	*/
+	  
 	
 	  
 		
