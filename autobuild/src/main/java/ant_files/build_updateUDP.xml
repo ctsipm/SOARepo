@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<project name="project" default="mqsiapplybaroverride.modifybar">
+  
+  <!--
+    Target to build the broker archive using mqsiapplybaroverride
+  -->
+  <target name="mqsiapplybaroverride.modifybar">
+    <echo message="Applying overrides in Broker Archive file - ${barFile.path} " />
+ 
+    <exec executable="${mqsiapplybaroverrideFile.path}">
+		<arg value="-b" />
+	    <arg value="${barFile.path}" />
+	    <arg value="-m" />
+	    <arg value="${barFile.properties}"/>
+    </exec>    
+  </target>
+</project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BUILD BAR" basedir="." default="buildMFProject">
+
+	<!-- Target to build a Message Flow project --> 
+	<target name="buildMFProject">
+		<echo message="******Building Broker Archive for Mesage Flow WorkSpace:${workspaceLoc} Bar file location:${barfileLocation} Project ${projectName} Resource Path ${resourcePath} CreateBar file path ${mqsicreatebarFile.path}******"/>
+		<exec executable="${mqsicreatebarFile.path}" failonerror="true">
+			<arg value="-data"/>
+			<arg value="${workspaceLoc}"/>
+			<arg value="-b"/>
+			<arg line="${barfileLocation}"/>
+			<arg value="-cleanBuild"/>
+			<arg value="-p"/>
+			<arg line="'Common Message Flows'"/>
+			<arg line="CommonCompressorJavaProject"/>			
+			<arg line="CommonJavaProject"/>
+			<arg line="PGPJavaUtil"/>
+			<arg line="Common"/>
+			<arg line="${projectName}" />
+			<arg value="-o"/>
+			<arg line="${resourcePath}" />
+			<arg value="-trace"/>
+		</exec>
+	</target>
+	
+	<!-- Target to build a Message Set project --> 
+	<target name="buildMSProject">
+			<echo message="******Building Broker Archive for Message Set WorkSpace:${workspaceLoc} Bar file location:${barfileLocation} Project ${projectName} Resource Path ${resourcePath} CreateBar file path ${mqsicreatebarFile.path}******"/>
+			<exec executable="${mqsicreatebarFile.path}" failonerror="true">
+				<arg value="-data"/>
+				<arg value="${workspaceLoc}"/>
+				<arg value="-b"/>
+				<arg line="${barfileLocation}"/>
+				<arg value="-cleanBuild"/>
+				<arg value="-p"/>
+				<arg line="${projectName}" />
+				<arg value="-o"/>
+				<arg line="${resourcePath}" />
+				<arg value="-trace"/>
+			</exec>
+		</target>
+</project>

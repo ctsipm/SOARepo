@@ -1,11 +1,13 @@
 package guru.springframework.domain;
 
+import java.util.List;
+
 
 public class BuildManuallyDtls {
     
 	private BuildManually buildManually;
-	private MessageApplicationWithRepo applicationWithRepo;
-	private MessageLibraryWithRepo libraryWithRepo;
+	private List<String> applicationWithRepo;
+	private List<String> libraryWithRepo;
 	private ManualBARCreationAppWiseInfo barCreationAppWiseInfo;
 	private ManualBARCreationLibWiseInfo barCreationLibWiseInfo;
 	private Iterable<MessageApplicationWithRepo> applicationWithRepoList;
@@ -20,17 +22,17 @@ public class BuildManuallyDtls {
 	public void setBuildManually(BuildManually buildManually) {
 		this.buildManually = buildManually;
 	}
-	public MessageApplicationWithRepo getApplicationWithRepo() {
+	
+	public List<String> getApplicationWithRepo() {
 		return applicationWithRepo;
 	}
-	public void setApplicationWithRepo(
-			MessageApplicationWithRepo applicationWithRepo) {
+	public void setApplicationWithRepo(List<String> applicationWithRepo) {
 		this.applicationWithRepo = applicationWithRepo;
 	}
-	public MessageLibraryWithRepo getLibraryWithRepo() {
+	public List<String> getLibraryWithRepo() {
 		return libraryWithRepo;
 	}
-	public void setLibraryWithRepo(MessageLibraryWithRepo libraryWithRepo) {
+	public void setLibraryWithRepo(List<String> libraryWithRepo) {
 		this.libraryWithRepo = libraryWithRepo;
 	}
 	public ManualBARCreationAppWiseInfo getBarCreationAppWiseInfo() {
@@ -75,7 +77,4 @@ public class BuildManuallyDtls {
 			Iterable<ManualBARCreationLibWiseInfo> barCreationLibWiseInfoList) {
 		this.barCreationLibWiseInfoList = barCreationLibWiseInfoList;
 	}
-	
-	
-	
 }

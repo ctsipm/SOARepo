@@ -43,14 +43,14 @@
             
             <div class="form-group">
             <label class="col-sm-2 control-label">Message Application Name: </label>
-            <select th:field="*{applicationWithRepo}" size="5">
+            <select id="applicationWithRepo" th:field="*{applicationWithRepo}" size="10" multiple="multiple">
                 <option th:each="messageapplicationwithrepo : ${messageapplicationwithrepos}" th:text="${messageapplicationwithrepo.name}" th:value="${messageapplicationwithrepo.id}" >[option]</option>
             </select>
         	</div>   
         	
         	<div class="form-group">
             <label class="col-sm-2 control-label">Message Library Name: </label>
-            <select th:field="*{libraryWithRepo}" size="5">
+            <select id="libraryWithRepo" th:field="*{libraryWithRepo}" size="10" multiple="multiple">
                 <option th:each="messagelibrarywithrepo : ${messagelibrarywithrepos}" th:text="${messagelibrarywithrepo.name}" th:value="${messagelibrarywithrepo.id}" >[option]</option>
             </select>
         	</div>      

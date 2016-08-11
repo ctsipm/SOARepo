@@ -1,12 +1,20 @@
 package guru.springframework.controllers;
 
+import java.io.IOException;
+import java.util.List;
+
 import guru.springframework.domain.BuildManually;
 import guru.springframework.domain.BuildManuallyDtls;
+import guru.springframework.domain.MessageApplicationWithRepo;
+import guru.springframework.jgit.api.CloneRemoteRepository;
 import guru.springframework.services.MessageApplicationWithRepoService;
 import guru.springframework.services.MessageFlowApplicationWiseService;
 import guru.springframework.services.MessageLibraryWithRepoService;
 import guru.springframework.services.MessageSetLibraryWiseService;
 
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.TransportException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,10 +75,46 @@ public class BuildManuallyController {
     }
     
     @RequestMapping(value = "buildmanually/buildbarfiles", method = RequestMethod.POST)
-    public String buildBARFiles(BuildManuallyDtls manualDtls, Model model){
-       
+    public String buildBARFiles(BuildManuallyDtls manualDtls, Model model){       
     	
-    	System.out.println("***" + manualDtls.getApplicationWithRepo().getName());
+    	System.out.println("***" + manualDtls.getApplicationWithRepo().size());
+    	
+    	List<String> applicationInfo = manualDtls.getApplicationWithRepo();
+    	
+    	for (String applicationInfoIndx : applicationInfo) {
+			
+    		MessageApplicationWithRepo applicationWithRepo =
+    				messageapplicationwithrepoService.getMessageApplicationWithRepoById(Integer.valueOf(applicationInfoIndx));	
+    		
+    		System.out.println(applicationWithRepo.getName());
+    		System.out.println(applicationWithRepo.getReponame());
+    		System.out.println(applicationWithRepo.getRepolocation());
+    		
+    		String remoteURL = "https://github.com/ctsipm/" 
+    				+ applicationWithRepo.getRepolocation() + ".git";
+    		
+    		try {
+				
+    			CloneRemoteRepository.cloneRemoteRepository(remoteURL, "D:/Ashrujit/Workspace");
+			
+    		} catch (InvalidRemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransportException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (GitAPIException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    		
+		}
+    	
+    	
     	
     	BuildManuallyDtls buildManuallyDtls = new BuildManuallyDtls();
     	model.addAttribute("buildmanualdtls", buildManuallyDtls);
@@ -78,33 +122,5 @@ public class BuildManuallyController {
     	return "buildmanualdtls";
     }
 
-    /*
-    @RequestMapping("broker/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
-        model.addAttribute("broker", brokerService.getBrokerById(id));
-        model.addAttribute("environments", envDetailService.listAllEnvironment());
-        model.addAttribute("queuemanagers", queuemanagerdetailService.listAllQueuemanagers());
-        return "brokerform";
-    }
-
-    @RequestMapping("broker/new")
-    public String newBroker(Model model){
-        model.addAttribute("broker", new Broker());
-        model.addAttribute("environments", envDetailService.listAllEnvironment());
-        model.addAttribute("queuemanagers", queuemanagerdetailService.listAllQueuemanagers());
-        return "brokerform";
-    }
-
-    @RequestMapping(value = "broker", method = RequestMethod.POST)
-    public String saveBroker(Broker broker){
-        brokerService.saveBroker(broker);
-        return "redirect:/broker/" + broker.getId();
-    }
-
-    @RequestMapping("broker/delete/{id}")
-    public String delete(@PathVariable Integer id){
-        brokerService.deleteBroker(id);
-        return "redirect:/brokers";
-    }
-*/
+    
 }

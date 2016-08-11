@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DEPLOY BAR" default="mqsideploy.deploybar" basedir=".">
+  	<!-- Target to deploy the broker archive using mqsideploy --> 
+	 
+    <target name="mqsideploy.deploybar" >
+    <echo message="******Deploying Broker Archive file:${barFilePath} in host:${ipaddress} port:${port} qmgr:${queuemgr} executionGroup:${exegroup} deployBatchFile:${deployBatchFile}******"/>
+
+	    <exec executable="${deployBatchFile.path}" failonerror="true" > 
+		<arg value="-i" /> 
+		<arg value="${ipaddress}" /> 
+		<arg value="-p" /> 
+		<arg value="${port}" /> 
+		<arg value="-q" /> 
+		<arg value="${queuemgr}" /> 	
+		<arg value="-e" /> 
+		<arg value="${exegroup}" /> 
+		<arg value="-a" /> 
+		<arg path="${barFilePath}" /> 
+		</exec> 
+	</target>
+</project>
