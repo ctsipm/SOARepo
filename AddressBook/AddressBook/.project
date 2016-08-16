@@ -14,6 +14,8 @@
 		<buildCommand>
 			<name>com.ibm.etools.mft.mapping.builder.mappingbuilder</name>
 			<arguments>
+				<argument>aaa</argument>
+				<argument>bbb</argument>
 			</arguments>
 		</buildCommand>
 		<buildCommand>

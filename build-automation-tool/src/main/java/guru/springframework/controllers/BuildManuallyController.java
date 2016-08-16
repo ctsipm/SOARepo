@@ -1,5 +1,6 @@
 package guru.springframework.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,17 +12,21 @@ import guru.springframework.services.MessageApplicationWithRepoService;
 import guru.springframework.services.MessageFlowApplicationWiseService;
 import guru.springframework.services.MessageLibraryWithRepoService;
 import guru.springframework.services.MessageSetLibraryWiseService;
+import guru.springframework.utils.FileUtility;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@PropertySource("classpath:config.properties")
 public class BuildManuallyController {
 
     private MessageApplicationWithRepoService messageapplicationwithrepoService;
@@ -29,6 +34,15 @@ public class BuildManuallyController {
     private MessageLibraryWithRepoService messagelibrarywithrepoService;
     private MessageSetLibraryWiseService messagesetlibrarywiseService;
 
+  	@Value("${msgflowtype}")
+  	private String msgflowtype;
+
+  	@Value("${local_workspace}")
+  	private String localWorkspace;
+  	
+  	@Value("${repo_url}")
+  	private String repoURL;
+    
     @Autowired
     public void setMessageApplicationWithReporService(MessageApplicationWithRepoService messageapplicationwithrepoService) {
         this.messageapplicationwithrepoService = messageapplicationwithrepoService;
@@ -90,12 +104,13 @@ public class BuildManuallyController {
     		System.out.println(applicationWithRepo.getReponame());
     		System.out.println(applicationWithRepo.getRepolocation());
     		
-    		String remoteURL = "https://github.com/ctsipm/" 
-    				+ applicationWithRepo.getRepolocation() + ".git";
+    		String remoteURL = repoURL + "/" + applicationWithRepo.getRepolocation() + ".git";
     		
     		try {
 				
-    			CloneRemoteRepository.cloneRemoteRepository(remoteURL, "D:/Ashrujit/Workspace");
+    			CloneRemoteRepository.cloneRemoteRepository(remoteURL, localWorkspace);
+    			
+    			
 			
     		} catch (InvalidRemoteException e) {
 				// TODO Auto-generated catch block
@@ -110,6 +125,20 @@ public class BuildManuallyController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    		
+    		File[] msgflowFiles = FileUtility.listf(localWorkspace + "\\" + applicationWithRepo.getName());
+    		
+    		String projectXML = null;
+    		
+    		for (File file : msgflowFiles) {
+				
+    			if(file.getName().contains(".project")){
+    				projectXML = file.getAbsolutePath();
+    				System.out.println("Project XML " + projectXML);
+    				break;
+    			}
+			}
+    		
     		
     		
 		}
