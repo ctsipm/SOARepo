@@ -1,6 +1,9 @@
 package guru.springframework.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,22 @@ public class FileUtility {
 	        }
 	    }
 	    return fList;
-	}   
+	}  
+	
+	
+	public static String readFile(String path) throws IOException{
+		
+		String sCurrentLine = null;
+        StringBuilder sb = new StringBuilder();
+		try (BufferedReader br = new BufferedReader(new FileReader(path))){		
+		  
+			while ((sCurrentLine = br.readLine()) != null) {
+		        sb.append(sCurrentLine);
+		    }
+		
+		}
+		
+		      return sb.toString();
+		}
 
 }

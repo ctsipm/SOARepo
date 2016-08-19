@@ -1,25 +1,33 @@
 package guru.springframework.controllers;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import guru.springframework.XMLConverter;
 import guru.springframework.domain.BuildManually;
 import guru.springframework.domain.BuildManuallyDtls;
 import guru.springframework.domain.MessageApplicationWithRepo;
+import guru.springframework.domain.MessageLibraryWithRepo;
 import guru.springframework.jgit.api.CloneRemoteRepository;
+import guru.springframework.pojo.MyPojo;
+import guru.springframework.pojo.projectDescription;
 import guru.springframework.services.MessageApplicationWithRepoService;
 import guru.springframework.services.MessageFlowApplicationWiseService;
 import guru.springframework.services.MessageLibraryWithRepoService;
 import guru.springframework.services.MessageSetLibraryWiseService;
 import guru.springframework.utils.FileUtility;
+import guru.springframework.utils.ReadXMLFile;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,8 +117,6 @@ public class BuildManuallyController {
     		try {
 				
     			CloneRemoteRepository.cloneRemoteRepository(remoteURL, localWorkspace);
-    			
-    			
 			
     		} catch (InvalidRemoteException e) {
 				// TODO Auto-generated catch block
@@ -139,7 +145,19 @@ public class BuildManuallyController {
     			}
 			}
     		
+    		List<String> msgsetNames = ReadXMLFile.readXMLFile(projectXML);    		
     		
+    		for (String msgsetName : msgsetNames) {
+				
+    			File f = new File(localWorkspace + "\\" + msgsetName);
+    			if(!f.exists() && !f.isDirectory()) { 
+    			    
+    				MessageLibraryWithRepo libraryWithRepo =
+    	    				messagelibrarywithrepoService.getMessageLibraryWithRepoById(Integer.valueOf(applicationInfoIndx));
+    				
+    			}
+    			
+			}
     		
 		}
     	
